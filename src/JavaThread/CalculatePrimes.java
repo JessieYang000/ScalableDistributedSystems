@@ -11,11 +11,13 @@ public class CalculatePrimes extends Thread {
         int[] primes = new int[MAX_PRIMES];
         int count = 0;
         for (int i=2; count<MAX_PRIMES; i++) {
-// Check to see if the timer has expired
+            // Check to see if the timer has expired
             if (finished) {
                 break;
             }
             boolean prime = true;
+            //If i is divisible by any non-prime number, it would also be divisible by some prime factor of that number.
+            //Therefore, checking divisibility only by primes is sufficient to determine whether i is prime.
             for (int j=0; j<count; j++) {
                 if (i % primes[j] == 0) {
                     prime = false;
