@@ -1,5 +1,8 @@
 package JavaThread;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * JavaThread.CalculatePrimes -- calculate as many primes as we can in ten seconds
  * Two threads in this example:
@@ -41,13 +44,25 @@ public class CalculatePrimes extends Thread {
         }
     }
     public static void main(String[] args) {
-        CalculatePrimes calculator = new CalculatePrimes();
-        calculator.start(); //start a new thread
-        try {
-            Thread.sleep(TEN_SECONDS);
-        } catch (InterruptedException e) {
-            // fall through
-        }
-        calculator.finished = true;
+//        CalculatePrimes calculator = new CalculatePrimes();
+//        calculator.start(); //start a new thread
+//        try {
+//            Thread.sleep(TEN_SECONDS);
+//        } catch (InterruptedException e) {
+//            // fall through
+//        }
+//        calculator.finished = true;
+//    }
+        Timer timer = new Timer();
+        final CalculatePrimes calculator = new CalculatePrimes();
+        calculator.start();
+        timer.schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        calculator.finished = true;
+                    }
+                }, TEN_SECONDS
+        );
     }
 }
